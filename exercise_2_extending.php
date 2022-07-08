@@ -3,6 +3,69 @@
 declare(strict_types=1);
 
 
+
+
+
+class Beverage {
+        public string $color;
+        public float $price;
+        public string $temperature = "cold";
+
+        function __construct(string $color, float $price, string $temperature) {
+                $this->color = $color;
+                $this->price = $price;
+                $this->temperature = $temperature;
+        }
+    //The constructor is, quite literally, the thing that constructs the object. 
+
+        function getInfo() {
+                return "This beverage is $this->temperature and $this->color";
+        }
+        
+}
+
+
+class Beer extends Beverage {
+    public string $name;
+    public float $alcoholPercentage;
+    
+    //A new class, that is a child of the Beverage class
+    //Child classes can inherit all the properties of the parent class, but, the parent class can't access the properties of it's children
+
+    function __construct(string $color, float $price, string $temperature, string $name, float $alcoholPercentage) {
+        parent::__construct($color, $price, $temperature);
+        $this->name = $name;
+        $this->alcoholPercentage = $alcoholPercentage;
+
+
+}
+
+function getAlcoholPercentage() {
+    return "this beverage has $this->alcoholPercentage";
+}
+
+}
+
+
+
+$cola = new Beverage("black", 2, "cold");
+
+// This is an object created from the beverage class
+// We set the values in the brackets, then those values get assigned to different properties in the class
+// And finally, in the constructor it gets created into an object
+
+
+
+
+
+$Duvel = new Beer("blond", 3.5, "cold", "Duvel", 8.5);
+
+
+echo($Duvel->getAlcoholPercentage() . "%" . "<br>");
+echo($Duvel->color);
+
+
+
 /* EXERCISE 2
 TODO: Make class beer that extends from Beverage.
 TODO: Create the properties name (string) and alcoholPercentage (float).
@@ -16,49 +79,3 @@ Make sure that each print is on a different line.
 Try to get this error on the screen= Fatal error: Uncaught Error: Call to undefined method Beverage::getAlcoholPercentage() in /var/www/becode/workshop/exercise2.php on line 64
 USE TYPEHINTING EVERYWHERE!
 */
-
-// class Beverage
-class Beverage {
-    public string $color;
-    public float $price;
-    public string $temperature;
-
-    public function __construct(float $price, string $color) {
-        $this->price= $price;
-        $this->color= $color;
-        $this->temperature ="cold";
-    }
-    public function get_info(): void {
-        echo "This beverage is $this->temperature and $this->color";
-    }
-}
-
-
-// class Beer
-class Beer extends Beverage {
-    public string $name;
-    public float $alcoholPercentage;
-
-    public function __construct(string $name, float $alcoholPercentage, float $price, string $color) {
-        parent:: __construct($price, $color);
-        $this->name = $name;
-        $this->alcoholPercentage = $alcoholPercentage;
-    }
-    // this 'getter', returns a float of the alcohol percentage
-    public function getAlcoholPercentage():float {
-        return $this->alcoholPercentage;
-    }
-
-}
-
-// Initialize the class
-$duvel=new Beer("Duvel", 8.5,3.5, "blond");
-
-$duvel->get_info();
-echo "<br>";
-echo $duvel->getAlcoholPercentage();
-echo "<br>";
-echo $duvel->alcoholPercentage;
-echo "<br>";
-echo $duvel->color;
-echo "<br>";
